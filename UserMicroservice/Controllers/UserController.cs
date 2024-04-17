@@ -27,13 +27,15 @@ namespace UserMicroservice.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> LogIn([FromForm] LoginModel loginModel)
         {
-            var user = await _userService.GetUser(loginModel.Email);
+            // get user
+            var user = await _userService.GetUserAsync(loginModel.Email);
 
             if (user != null)
             {
+                // hash password and compare with db
                 var hashedPwd = _securityService.Hasher(loginModel.Password, user.PasswordSalt, Globals.HashIter);
 
-                if (user.PasswordHash == hashedPwd)
+                if (user.PasswordHash == hashedPwd) // validated user
                 {
                     var result = new UserDataModel()
                     {
@@ -46,6 +48,42 @@ namespace UserMicroservice.Controllers
                 }
 
                 return BadRequest();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost("/logon")]
+        public async Task<IActionResult> LogOn([FromForm] LogonModel logonModel)
+        {
+            var isUserExist = await _userService.IsUserExistAsync(logonModel.Email);
+
+            if (!isUserExist)
+            {
+                if (logonModel.Password == logonModel.PasswordConf)
+                {
+                    // generate salt and hash
+                    var userSalt = _securityService.GenerateSalt();
+                    var userHashedPwd = _securityService.Hasher(logonModel.Password, userSalt, Globals.HashIter);
+
+                    var user = new UserDataModel()
+                    {
+                        Email = logonModel.Email,
+                        CompanyUser = logonModel.CompanyUser,
+                        PasswordSalt = userSalt,
+                        PasswordHash = userHashedPwd
+                    };
+
+                    // save user
+                    _userService.AddUser(user);
+
+                    var userResult = await _userService.GetUserAsync(user.Email);
+
+                    if (userResult != null)
+                    {
+                        return Ok(userResult);
+                    }
+                }
             }
 
             return BadRequest();

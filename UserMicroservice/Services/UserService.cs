@@ -13,16 +13,16 @@ namespace UserMicroservice.Services
             _userRepository = userRepository;
         }
 
-        public async Task<UserDataModel> GetUser(string email)
+        public async Task<UserDataModel> GetUserAsync(string email)
         {
-            var user = _userRepository.GetUser(email);
+            var user = await _userRepository.GetUserAsync(email);
 
-            return await user;
+            return user;
         }
 
-        public bool IsUserExist(string email)
+        public async Task<bool> IsUserExistAsync(string email)
         {
-            return _userRepository.IsUserExist(email);
+            return await _userRepository.IsUserExistAsync(email);
         }
 
         public UserProfileDataModel GetUserProfile(int userId)

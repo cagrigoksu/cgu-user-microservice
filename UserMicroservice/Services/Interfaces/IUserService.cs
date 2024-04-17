@@ -4,8 +4,8 @@ namespace UserMicroservice.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDataModel> GetUser(string email);
-        bool IsUserExist(string email);
+        Task<UserDataModel> GetUserAsync(string email);
+        Task<bool> IsUserExistAsync(string email);
         UserProfileDataModel GetUserProfile(int userId);
         void AddUser(UserDataModel user);
         void AddUserProfile(UserProfileDataModel profile);

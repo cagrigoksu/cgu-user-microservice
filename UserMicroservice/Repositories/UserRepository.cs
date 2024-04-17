@@ -12,7 +12,7 @@ namespace UserMicroservice.Repositories
             _db = db;
         }
 
-        public async Task<UserDataModel> GetUser(string email)
+        public async Task<UserDataModel> GetUserAsync(string email)
         {
             var user = _db.Users.
                 FirstOrDefaultAsync(x => x.Email == email
@@ -70,9 +70,9 @@ namespace UserMicroservice.Repositories
             _db.SaveChanges();
         }
 
-        public bool IsUserExist(string email)
+        public async Task<bool> IsUserExistAsync(string email)
         {
-            var user = _db.Users.FirstOrDefault(x => x.Email == email);
+            var user = await _db.Users.FirstOrDefaultAsync(x => x.Email == email);
             return user != null;
         }
     }
