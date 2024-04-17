@@ -1,0 +1,1 @@
+# cgu-user-microservice.git

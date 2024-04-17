@@ -43,11 +43,9 @@ namespace UserMicroservice.Controllers
                     };
 
                     return Ok(result);
-                    // return (StatusCode(201), JsonConvert.SerializeObject(user));
                 }
 
                 return BadRequest();
-                //return (StatusCode(404), null);
             }
 
             return BadRequest();
