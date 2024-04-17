@@ -81,7 +81,12 @@ namespace UserMicroservice.Controllers
 
                     if (userResult != null)
                     {
-                        return Ok(userResult);
+                        return Ok(new UserDataModel()
+                        {
+                            Id = userResult.Id,
+                            Email = userResult.Email,
+                            CompanyUser = userResult.CompanyUser
+                        });
                     }
                 }
             }

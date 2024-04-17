@@ -135,3 +135,4 @@ C:\Users\cgust\Desktop\Projects\UserMicroservice\UserMicroservice\bin\Debug\net8
 C:\Users\cgust\Desktop\Projects\UserMicroservice\UserMicroservice\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\cgust\Desktop\Projects\UserMicroservice\UserMicroservice\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\cgust\Desktop\Projects\UserMicroservice\UserMicroservice\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\cgust\Desktop\Projects\UserMicroservice\UserMicroservice\obj\Debug\net8.0\UserMicroservice.sourcelink.json
