@@ -52,8 +52,8 @@ namespace UserMicroservice.Controllers
 
             return BadRequest();
         }
-
-        [HttpPost("/logon")]
+        
+        [HttpPost("logon")]
         public async Task<IActionResult> LogOn([FromForm] LogonModel logonModel)
         {
             var isUserExist = await _userService.IsUserExistAsync(logonModel.Email);
