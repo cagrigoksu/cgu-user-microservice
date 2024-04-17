@@ -10,6 +10,6 @@ namespace UserMicroservice.Repositories.Interfaces
         void AddUserProfile(UserProfileDataModel profile);
         void EditUserProfile(UserProfileDataModel userProfile);
         void DeleteUser(int id);
-        Task<bool> IsUserExist(string email);
+        Task<bool> IsUserExistAsync(string email);
     }
 }
