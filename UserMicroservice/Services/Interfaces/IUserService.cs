@@ -1,4 +1,5 @@
-﻿using UserMicroservice.Models.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using UserMicroservice.Models.Data;
 
 namespace UserMicroservice.Services.Interfaces
 {
@@ -8,8 +9,8 @@ namespace UserMicroservice.Services.Interfaces
         Task<bool> IsUserExistAsync(string email);
         Task<UserProfileDataModel> GetUserProfileAsync(int userId);
         void AddUser(UserDataModel user);
-        void AddUserProfile(UserProfileDataModel profile);
-        void EditUserProfile(UserProfileDataModel userProfile);
+        StatusCodeResult AddUserProfile(UserProfileDataModel profile);
+        StatusCodeResult EditUserProfile(UserProfileDataModel userProfile);
         void DeleteUser(int id);
 
     }

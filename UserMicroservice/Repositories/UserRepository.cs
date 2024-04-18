@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UserMicroservice.Models.Data;
 using UserMicroservice.Repositories.Interfaces;
 
@@ -35,27 +36,50 @@ namespace UserMicroservice.Repositories
             _db.SaveChanges();
         }
 
-        public void AddUserProfile(UserProfileDataModel userProfile)
+        public StatusCodeResult AddUserProfile(UserProfileDataModel userProfile)
         {
-            userProfile.LastEditDate = DateTime.Now;
-            _db.Add(userProfile);
-            _db.SaveChanges();
+            try
+            {
+                userProfile.LastEditDate = DateTime.Now;
+                _db.Add(userProfile);
+                _db.SaveChanges();
+                return new StatusCodeResult(200);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new StatusCodeResult(400);
+            }
+
         }
 
-        public async void EditUserProfileAsync(UserProfileDataModel userProfile)
+        public StatusCodeResult EditUserProfile(UserProfileDataModel userProfile)
         {
-            var data = await _db.UserProfiles.FirstAsync(x => x.UserId == Globals.UserId);
+            try
+            {
+                var data = _db.UserProfiles.First(x => x.UserId == userProfile.UserId);
 
-            data.Name = userProfile.Name;
-            data.Surname = userProfile.Surname;
-            data.PhoneNumber = userProfile.PhoneNumber;
-            data.Email = userProfile.Email;
-            data.UrlResume = userProfile.UrlResume;
-            data.UrlMotivationLetter = userProfile.UrlMotivationLetter;
-            data.LastEditDate = DateTime.Now;
+                if (data != null)
+                {
+                    data.Name = userProfile.Name;
+                    data.Surname = userProfile.Surname;
+                    data.PhoneNumber = userProfile.PhoneNumber;
+                    data.Email = userProfile.Email;
+                    data.UrlResume = userProfile.UrlResume;
+                    data.UrlMotivationLetter = userProfile.UrlMotivationLetter;
+                    data.LastEditDate = DateTime.Now;
 
-            _db.Update(data);
-            _db.SaveChanges();
+                    _db.Update(data);
+                    _db.SaveChanges();
+                }
+
+                return new StatusCodeResult(200);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new StatusCodeResult(400);
+            }
         }
 
         public async void DeleteUserAsync(int id)

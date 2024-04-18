@@ -1,4 +1,5 @@
-﻿using UserMicroservice.Models.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using UserMicroservice.Models.Data;
 using UserMicroservice.Repositories.Interfaces;
 using UserMicroservice.Services.Interfaces;
 
@@ -37,14 +38,18 @@ namespace UserMicroservice.Services
             _userRepository.AddUser(user);
         }
 
-        public void AddUserProfile(UserProfileDataModel profile)
+        public StatusCodeResult AddUserProfile(UserProfileDataModel profile)
         {
-            _userRepository.AddUserProfile(profile);
+            var result = _userRepository.AddUserProfile(profile);
+            return result;
         }
 
-        public void EditUserProfile(UserProfileDataModel userProfile)
+        public  StatusCodeResult EditUserProfile(UserProfileDataModel userProfile)
         {
-            _userRepository.EditUserProfileAsync(userProfile);
+            var result = _userRepository.EditUserProfile(userProfile);
+
+            return result;
+
         }
 
         public void DeleteUser(int id)

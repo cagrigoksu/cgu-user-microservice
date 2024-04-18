@@ -110,9 +110,25 @@ namespace UserMicroservice.Controllers
         [HttpPost("edit-user-profile")]
         public IActionResult EditUserProfileAsync([FromForm] UserProfileDataModel userProfile)
         {
-            _userService.EditUserProfile(userProfile);
-            
-            return Ok();
+            var result = _userService.EditUserProfile(userProfile);
+
+            if (result != null)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
+
+        [HttpPost("add-user-profile")]
+        public IActionResult AddUserProfile([FromForm] UserProfileDataModel userProfile)
+        {
+            var result = _userService.AddUserProfile(userProfile);
+
+            if (result != null)
+            {
+                return Ok();
+            }
+            return BadRequest();
         }
 
     }
