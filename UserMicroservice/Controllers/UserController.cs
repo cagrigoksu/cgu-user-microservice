@@ -94,6 +94,30 @@ namespace UserMicroservice.Controllers
             return BadRequest();
         }
 
+        [HttpGet("get-user-by-email")]
+        public async Task<IActionResult> GetUserByEmail([FromForm] string email)
+        {
+            var result = await _userService.GetUserAsync(email);
+
+            if (result != null)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
+
+        [HttpPost("add-user-profile")]
+        public IActionResult AddUserProfile([FromForm] UserProfileDataModel userProfile)
+        {
+            var result = _userService.AddUserProfile(userProfile);
+
+            if (result != null)
+            {
+                return Ok();
+            }
+            return BadRequest();
+        }
+
         [HttpGet("get-user-profile/{userId}")]
         public async Task<IActionResult> GetUserProfileAsync(int userId)
         {
@@ -119,17 +143,7 @@ namespace UserMicroservice.Controllers
             return BadRequest();
         }
 
-        [HttpPost("add-user-profile")]
-        public IActionResult AddUserProfile([FromForm] UserProfileDataModel userProfile)
-        {
-            var result = _userService.AddUserProfile(userProfile);
-
-            if (result != null)
-            {
-                return Ok();
-            }
-            return BadRequest();
-        }
+        
 
     }
 }
