@@ -94,7 +94,7 @@ namespace UserMicroservice.Controllers
             return BadRequest();
         }
 
-        [HttpGet("get-user-profile")]
+        [HttpGet("get-user-profile/{userId}")]
         public async Task<IActionResult> GetUserProfileAsync(int userId)
         {
             var user = await _userService.GetUserProfileAsync(userId);
