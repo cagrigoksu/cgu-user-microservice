@@ -25,9 +25,9 @@ namespace UserMicroservice.Services
             return await _userRepository.IsUserExistAsync(email);
         }
 
-        public UserProfileDataModel GetUserProfile(int userId)
+        public async Task<UserProfileDataModel> GetUserProfileAsync(int userId)
         {
-            var user = _userRepository.GetUserProfile(userId);
+            var user = await _userRepository.GetUserProfileAsync(userId);
 
             return user;
         }
@@ -44,12 +44,12 @@ namespace UserMicroservice.Services
 
         public void EditUserProfile(UserProfileDataModel userProfile)
         {
-            _userRepository.EditUserProfile(userProfile);
+            _userRepository.EditUserProfileAsync(userProfile);
         }
 
         public void DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            _userRepository.DeleteUserAsync(id);
         }
     }
 }

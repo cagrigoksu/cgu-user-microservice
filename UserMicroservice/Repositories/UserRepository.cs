@@ -21,11 +21,11 @@ namespace UserMicroservice.Repositories
             return await user;
         }
 
-        public UserProfileDataModel GetUserProfile(int userId)
+        public async Task<UserProfileDataModel> GetUserProfileAsync(int userId)
         {
-            var profile = _db.UserProfiles.FirstOrDefault(x => x.UserId == userId && x.IsDeleted == false);
+            var profile = _db.UserProfiles.FirstOrDefaultAsync(x => x.UserId == userId && x.IsDeleted == false);
 
-            return profile;
+            return await profile;
         }
 
         public void AddUser(UserDataModel user)
@@ -42,9 +42,9 @@ namespace UserMicroservice.Repositories
             _db.SaveChanges();
         }
 
-        public void EditUserProfile(UserProfileDataModel userProfile)
+        public async void EditUserProfileAsync(UserProfileDataModel userProfile)
         {
-            var data = _db.UserProfiles.First(x => x.UserId == Globals.UserId);
+            var data = await _db.UserProfiles.FirstAsync(x => x.UserId == Globals.UserId);
 
             data.Name = userProfile.Name;
             data.Surname = userProfile.Surname;
@@ -58,9 +58,9 @@ namespace UserMicroservice.Repositories
             _db.SaveChanges();
         }
 
-        public void DeleteUser(int id)
+        public async void DeleteUserAsync(int id)
         {
-            var user = _db.Users.Find(id);
+            var user = await _db.Users.FindAsync(id);
 
             user.IsDeleted = true;
             user.DeleteUser = Globals.UserId;

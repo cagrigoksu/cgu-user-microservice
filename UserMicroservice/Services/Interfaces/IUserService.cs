@@ -6,7 +6,7 @@ namespace UserMicroservice.Services.Interfaces
     {
         Task<UserDataModel> GetUserAsync(string email);
         Task<bool> IsUserExistAsync(string email);
-        UserProfileDataModel GetUserProfile(int userId);
+        Task<UserProfileDataModel> GetUserProfileAsync(int userId);
         void AddUser(UserDataModel user);
         void AddUserProfile(UserProfileDataModel profile);
         void EditUserProfile(UserProfileDataModel userProfile);

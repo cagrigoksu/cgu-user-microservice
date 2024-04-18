@@ -93,5 +93,27 @@ namespace UserMicroservice.Controllers
 
             return BadRequest();
         }
+
+        [HttpGet("get-user-profile")]
+        public async Task<IActionResult> GetUserProfileAsync(int userId)
+        {
+            var user = await _userService.GetUserProfileAsync(userId);
+
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            return Ok(user);
+        }
+
+        [HttpPost("edit-user-profile")]
+        public IActionResult EditUserProfileAsync([FromForm] UserProfileDataModel userProfile)
+        {
+            _userService.EditUserProfile(userProfile);
+            
+            return Ok();
+        }
+
     }
 }
